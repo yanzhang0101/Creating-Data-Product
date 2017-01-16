@@ -1,0 +1,29 @@
+---
+title: "OSF Healthcare System Hospital Locations"
+date: "January 16, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## January 16, 2017
+
+
+```{r echo=FALSE, message=FALSE, results=FALSE}
+library(leaflet)
+library(ggmap)
+
+addresses <- read.csv("OSF Addresses.csv", stringsAsFactors = FALSE)
+
+geo_result <- geocode(addresses$Address, output = "latlon")
+
+my_map <- leaflet() %>%
+    addTiles() %>%
+    addMarkers(lat = geo_result$lat, lng = geo_result$lon, popup = addresses$Hospital)
+my_map
+
+
+```
+
